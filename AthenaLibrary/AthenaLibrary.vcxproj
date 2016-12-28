@@ -142,6 +142,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ABigNum.h" />
+    <ClInclude Include="ACore.h" />
+    <ClInclude Include="ADBConnector.h" />
+    <ClInclude Include="AFormat.h" />
+    <ClInclude Include="AMemPool.h" />
+    <ClInclude Include="ASetting.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ABigNum.cpp" />
+    <ClCompile Include="ADBConnector.cpp" />
+    <ClCompile Include="AFormat.cpp" />
+    <ClCompile Include="AMemPool.cpp" />
+    <ClCompile Include="ASetting.cpp" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

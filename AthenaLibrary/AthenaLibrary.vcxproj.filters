@@ -14,4 +14,44 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ACore.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ADBConnector.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="AFormat.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ABigNum.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="AMemPool.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ASetting.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ADBConnector.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="AFormat.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ABigNum.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="AMemPool.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ASetting.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
 </Project>
