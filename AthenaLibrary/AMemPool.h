@@ -1,6 +1,6 @@
 /*
 
-Yuyue's Classes Library For Microsoft Visual C++
+Athena Classes Library For Microsoft Visual C++
 
 Copyright @2016 CDU INnoVation Studio
 All rights reserved. 

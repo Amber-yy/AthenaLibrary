@@ -1,6 +1,6 @@
 /*
 
-Yuyue's Classes Library For Microsoft Visual C++
+AthenaClasses Library For Microsoft Visual C++
 
 Copyright @2016 CDU INnoVation Studio
 All rights reserved.
@@ -18,6 +18,7 @@ e-mail：1397011447@qq.com
 修正日志：
 V1.1，修复了metaDivi中的一个bug，修复了operator/=中的巨大隐患。
 V2.0，调整了类的声明，现在私有成员对外不可见。
+V3.0，增加了各种比较运算符。
 
 */
 
@@ -52,16 +53,29 @@ public:
 	ABigNum operator*(const ABigNum &) const;
 	ABigNum operator/(const ABigNum &) const;
 	bool operator>(const ABigNum&) const;
+	bool operator<(const ABigNum&) const;
+	bool operator==(const ABigNum&) const;
+	bool operator<=(const ABigNum&) const;
+	bool operator>=(const ABigNum&) const;
+	bool operator!=(const ABigNum&) const;
+	bool less(const ABigNum &) const;
+	bool greater(const ABigNum &) const;
+	bool equal(const ABigNum &) const;
+	bool lessEqual(const ABigNum &) const;
+	bool greaterEqual(const ABigNum &) const;
+	bool notEqual(const ABigNum &) const;
 	bool isOk() const;
 	int getLength() const;
 	const char *getBase() const;
 	~ABigNum();
 protected:
+	bool compare(const bool *, const ABigNum &) const;
 	void metaAdd(ABigNum *, const ABigNum *, const ABigNum *) const;
 	void metaSub(ABigNum *, const ABigNum *, const ABigNum *) const;
 	void metaMulti(ABigNum *, const ABigNum *, const ABigNum *) const;
 	void metaDivi(ABigNum *, const ABigNum *, const ABigNum *) const;
 	void resetSize(int);
+protected:
 	std::unique_ptr<bigNumData> data;
 	const static int baseSize = 2000;
 };

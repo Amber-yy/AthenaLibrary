@@ -1,6 +1,6 @@
 #include "ADBConnector.h"
 #include "AFormat.h"
-#include <mysql.h>
+#include "mysql.h"
 #include <map>
 
 #pragma comment(lib,"libmysql")

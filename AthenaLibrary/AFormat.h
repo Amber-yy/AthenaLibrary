@@ -5,7 +5,7 @@ Athena Classes Library For Microsoft Visual C++
 Copyright @2016 CDU INnoVation Studio
 All rights reserved.
 
-文件名称：aformat.h
+文件名称：AFormat.h
 摘要：
 1.本文件含有格式处理类AFormat的声明，实现在aformat.cpp中。
 2.AFormat类的对象能实现各种数据之间的转换，如字符串到浮点数等。

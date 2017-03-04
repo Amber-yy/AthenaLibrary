@@ -123,30 +123,66 @@ std::istream & operator>>(std::istream &in,  ABigNum &num)
 	return in;
 }
 
-bool ABigNum::operator>(const ABigNum &num) const
+bool ABigNum::less(const ABigNum &num) const
+{
+	bool result[] = { false ,true,false,true,false };
+	return compare(result, num);
+}
+
+bool ABigNum::greater(const ABigNum &num) const
+{
+	bool result[] = { true ,false,true,false,false };
+	return compare(result, num);
+}
+
+bool ABigNum::equal(const ABigNum &num) const
+{
+	bool result[] = { false ,false,false,false,true };
+	return compare(result, num);
+}
+
+bool ABigNum::lessEqual(const ABigNum &num) const
+{
+	bool result[] = { false ,true,false,true,true };
+	return compare(result, num);
+}
+
+bool ABigNum::greaterEqual(const ABigNum &num) const
+{
+	bool result[] = { true,false,true,false,true };
+	return compare(result, num);
+}
+
+bool ABigNum::notEqual(const ABigNum &num) const
+{
+	bool result[]={ true,true,true,true,false };
+	return compare(result, num);
+}
+
+bool ABigNum::compare(const bool *result, const ABigNum &num) const
 {
 	if (data->currentPos > num.data->currentPos)
 	{
-		return true;
+		return result[0];
 	}
 	else if (data->currentPos < num.data->currentPos)
 	{
-		return false;
+		return result[1];
 	}
 
 	for (int i = data->currentPos - 1; i >= 0; i--)
 	{
 		if (data->base[i]>num.data->base[i])
 		{
-			return true;
+			return result[2];
 		}
 		if (data->base[i]<num.data->base[i])
 		{
-			return false;
+			return result[3];
 		}
 	}
 
-	return false;
+	return result[4];
 }
 
 bool ABigNum::isOk() const
@@ -209,7 +245,7 @@ ABigNum ABigNum::operator*(const ABigNum &num) const
 ABigNum ABigNum::operator/(const ABigNum &num) const
 {
 	ABigNum temp;
-	if (*this > num)
+	if (this->greater(num))
 	{
 		metaDivi(&temp,this,&num);
 		return temp;
@@ -219,9 +255,101 @@ ABigNum ABigNum::operator/(const ABigNum &num) const
 	return temp;
 }
 
+bool ABigNum::operator<(const ABigNum &num) const
+{
+	if (data->isNegative)
+	{
+		if (num.data->isNegative)//- -
+		{
+			return greater(num);
+		}
+		return true;//- +
+	}
+
+	if (num.data->isNegative)//- -
+	{
+		return false;
+	}
+	return less(num);
+}
+
+bool ABigNum::operator>(const ABigNum &num) const
+{
+	if (data->isNegative)
+	{
+		if (num.data->isNegative)//- -
+		{
+			return less(num);
+		}
+		return false;//- +
+	}
+
+	if (num.data->isNegative)//- -
+	{
+		return true;
+	}
+	return greater(num);
+}
+
+bool ABigNum::operator==(const ABigNum &num) const
+{
+	if (data->isNegative == num.data->isNegative)
+	{
+		return equal(num);
+	}
+
+	return false;
+}
+
+bool ABigNum::operator<=(const ABigNum &num) const
+{
+	if (data->isNegative)
+	{
+		if (num.data->isNegative)//- -
+		{
+			return greaterEqual(num);
+		}
+		return true;//- +
+	}
+
+	if (num.data->isNegative)//- -
+	{
+		return false;
+	}
+	return lessEqual(num);
+}
+
+bool ABigNum::operator>=(const ABigNum &num) const
+{
+	if (data->isNegative)
+	{
+		if (num.data->isNegative)//- -
+		{
+			return lessEqual(num);
+		}
+		return false;//- +
+	}
+
+	if (num.data->isNegative)//- -
+	{
+		return true;
+	}
+	return greaterEqual(num);
+}
+
+bool ABigNum::operator!=(const ABigNum &num) const
+{
+	if (data->isNegative == num.data->isNegative)
+	{
+		return notEqual(num);
+	}
+
+	return true;
+}
+
 ABigNum & ABigNum::operator/=(const ABigNum &num)
 {
-	if (*this > num)
+	if (this->greater(num))
 	{
 		ABigNum temp;
 		metaDivi(&temp, this, &num);
@@ -251,7 +379,7 @@ ABigNum & ABigNum::operator+=(const ABigNum &num)
 {
 	ABigNum *bigOne, *smallOne;
 
-	if (*this>num)
+	if (this->greater(num))
 	{
 		bigOne = const_cast<ABigNum *>(this);
 		smallOne = const_cast<ABigNum *>(&num);
@@ -287,7 +415,7 @@ ABigNum & ABigNum::operator-=(const ABigNum &num)
 
 	ABigNum *bigOne, *smallOne;
 
-	if (*this>num)
+	if (this->greater(num))
 	{
 		bigOne = const_cast<ABigNum *>(this);
 		smallOne = const_cast<ABigNum *>(&num);
@@ -342,7 +470,7 @@ ABigNum ABigNum::operator + (const ABigNum &num) const
 	char *str = temp.data->base;
 	ABigNum *bigOne, *smallOne;
 
-	if (*this>num)
+	if (this->greater(num))
 	{
 		bigOne = const_cast<ABigNum *>(this);
 		smallOne = const_cast<ABigNum *>(&num);
@@ -384,7 +512,7 @@ ABigNum ABigNum::operator - (const ABigNum &num) const
 	char *str = temp.data->base;
 	ABigNum *bigOne, *smallOne;
 
-	if (*this>num)
+	if (this->greater(num))
 	{
 		bigOne = const_cast<ABigNum *>(this);
 		smallOne = const_cast<ABigNum *>(&num);
@@ -569,7 +697,7 @@ void ABigNum::metaDivi(ABigNum *result, const ABigNum *bigOne, const ABigNum *sm
 		while (true)
 		{
 			tempNum = (*result)*(*smallOne);
-			if (tempNum > *bigOne)
+			if (tempNum.greater(*bigOne))
 			{
 				temp[iterator]--;
 				break;

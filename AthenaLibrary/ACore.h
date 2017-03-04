@@ -5,7 +5,7 @@ Athena Classes Library For Microsoft Visual C++
 Copyright @2016 CDU INnoVation Studio
 All rights reserved.
 
-文件名称：acore.h
+文件名称：ACore.h
 摘要：
 1.本文件含有athena程序库的一些核心内容的定义。
 
