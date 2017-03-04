@@ -9,7 +9,7 @@ All rights reserved.
 摘要：
 1.本文件含大数类的声明，实现在ABigNum.cpp中
 
-当前版本：V2.0
+当前版本：V3.0
 作者：余悦
 e-mail：1397011447@qq.com
 创建日期：2016年07月18日
