@@ -234,6 +234,10 @@ AQuery ADBConnector::query(const DBString &sql) const
 
 	AQuery query;
 	query.data->res = mysql_store_result(data->connection);
+	if (query.data->res == nullptr)
+	{
+		return query;
+	}
 	query.data->maxRow=static_cast<int>(mysql_num_rows(query.data->res));
 	query.data->fieldNum = mysql_num_fields(query.data->res);
 	MYSQL_FIELD *fields=mysql_fetch_fields(query.data->res);
@@ -450,6 +454,11 @@ DBString AQuery::operator[](int index) const
 	}
 
 	return DBString(data->row[index]);
+}
+
+DBString AQuery::operator[](const DBString & field) const
+{
+	return  getValueByField(field);
 }
 
 DBString AQuery::getValueByField(const DBString & field) const

@@ -1,15 +1,27 @@
 #include <iostream>
-#include "ABigNum.h"
+#include <conio.h>
+
+#include "AThread.h"
+
+class myThread :public athena::AThread
+{
+protected:
+	virtual void run() override;
+};
+
+void myThread::run()
+{
+	std::cout << "666\n";
+}
 
 int main()
 {
-	athena::ABigNum num(1), result(1);   /*声明两个大整数类型变量num和result，并赋初值1*/
-	std::cout << "第10天有" << result << "个桃子\n";
-	for (int i = 0; i < 9; i++)
+	myThread thr;
+
+	while (true)
 	{
-		result += num;
-		result *= result;
-		std::cout << "第" << 9 - i << "天有" << result << "个桃子\n";
+		_getch();
+		thr.start();
 	}
 
 	return 0;

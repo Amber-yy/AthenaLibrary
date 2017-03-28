@@ -59,6 +59,7 @@ public:
 	int rowNum() const;
 	int fieldNum() const;
 	DBString operator[](int index) const;
+	DBString operator[](const DBString &field) const;
 	DBString getValueByField(const DBString &field) const;
 	DBStringList getAllFields() const;
 protected:

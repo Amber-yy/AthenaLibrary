@@ -150,6 +150,7 @@
     <ClInclude Include="AFormat.h" />
     <ClInclude Include="AMemPool.h" />
     <ClInclude Include="ASetting.h" />
+    <ClInclude Include="AThread.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ABigNum.cpp" />
@@ -157,6 +158,7 @@
     <ClCompile Include="AFormat.cpp" />
     <ClCompile Include="AMemPool.cpp" />
     <ClCompile Include="ASetting.cpp" />
+    <ClCompile Include="AThread.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
