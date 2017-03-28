@@ -7,24 +7,26 @@ All rights reserved.
 
 文件名称：ADBConnector.h
 摘要：
-1.本文件含有MySQL数据库操作类的声明，实现在ADBConnector.cpp中。
-2.ADBConnector类的对象能实现连接MySQL数据库，并执行相关的操作。
-3.所有的功能均是对MySQL提供C API的封装。
-4.通过ADBConnector来访问数据库并不会比纯C API慢，因为数据库的性能瓶颈在于数据库本身以及硬盘。
+1.本文件含有多线程类的声明，实现在AThread.cpp中。
+2.AThread类提供了一种线程复用方案，一个线程被创建后，不会只运行一次就失效，而可以被多次使用。
+3.多线程类实际上是对标准库中的thread类的封装，但线程默认与主线程分离。
+4.调用start函数来启动目标线程，线程启动时，掉用的函数为run，run函数可被重写。
 
-当前版本：V1.0
+当前版本：V1.1
 作者：余悦
 e-mail：1397011447@qq.com
-创建日期：2016年12月03日
-更新日期：2016年12月26日
+创建日期：2017年03月28日
+更新日期：2017年03月28日
 
 修正日志：
+V1.1，现在线程start的时候，可以绑定任意callable，而不只是绑定在run函数上。
 
 */
 
 #pragma once
 
 #include <memory>
+#include <functional>
 
 #include "ACore.h"
 
@@ -38,6 +40,7 @@ public:
 	AThread();
 	virtual ~AThread();
 	void start();
+	void start(std::function<void()> fun);
 	bool isRunning();
 	bool isFinished();
 protected:

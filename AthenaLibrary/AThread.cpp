@@ -2,6 +2,7 @@
 
 #include <thread>
 #include <mutex>
+#include <atomic>
 
 ATHENA_BEGIN
 
@@ -10,7 +11,9 @@ struct threadData
 	std::thread thread;
 	std::mutex locker;
 	std::condition_variable signal;
-	bool running;
+	std::function<void()> fun;
+	std::atomic_bool running;
+	std::atomic_bool useFun;
 };
 
 AThread::AThread()
@@ -18,6 +21,7 @@ AThread::AThread()
 	data = std::make_unique<threadData>();
 	data->thread = std::thread(&AThread::exec, this);
 	data->thread.detach();
+	data->running = false;
 }
 
 AThread::~AThread()
@@ -27,6 +31,22 @@ AThread::~AThread()
 
 void AThread::start()
 {
+	if (data->running)
+	{
+		return;
+	}
+	data->useFun = false;
+	data->signal.notify_one();
+}
+
+void AThread::start(std::function<void()> fun)
+{
+	if (data->running)
+	{
+		return;
+	}
+	data->fun = fun;
+	data->useFun = true;
 	data->signal.notify_one();
 }
 
@@ -47,9 +67,17 @@ void AThread::exec()
 	{
 		data->signal.wait(lock);
 		data->running = true;
-		run();
+		if (data->useFun)
+		{
+			data->fun();
+		}
+		else
+		{
+			run();
+		}
 		data->running = false;
 	}
+
 }
 
 void AThread::run()
